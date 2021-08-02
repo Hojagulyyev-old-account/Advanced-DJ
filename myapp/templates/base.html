@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load redirect_i18n %}
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
@@ -26,11 +27,12 @@
         {% get_available_languages as LANGUAGES %}
         {% get_language_info_list for LANGUAGES as languages %}
         <div class="languages">
-        <p>{% trans "Language" %}:</p>
+        <p>{% trans "Language" %}: {{LANGUAGE_CODE}}</p>
           <ul class="languages">
             {% for language in languages %}
               <li>
-                <a href="/{{ language.code }}/{{request.get_full_path|slice:"4:"}}"
+                <!-- <a href="/{{ language.code }}/{{request.get_full_path|slice:"4:"}}" -->
+                <a href="{% change_language lang=language.code path=request.get_full_path %}"
                   {% if language.code == LANGUAGE_CODE %} class="selected"{% endif %}>
                   {{ language.name_local }}
                 </a>
