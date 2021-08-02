@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>{% trans "Create Product: " %}</h2>
+      <br>
+      <form method="post">
+        {% csrf_token %}
+        <span style="color:red">{% if form.title.errors %}{{ form.title.errors.as_text|cut:"* " }}{% endif %}</span><br>
+        {{form.title.label_tag}}<p>{{form.title}}</p>
+        {% if form.description.errors %}{{ form.description.errors }}{% endif %}
+        {{form.description.label_tag}}<p>{{form.description}}</p>
+        {{form.price.label_tag}}<p>{{form.price}}</p>
+        <input type="submit" value="Create">
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <h2>{% trans "Product Items: " %}</h2>
+      <br>
+      <ul>
+        {% for product in products %}
+          <li>
+            <ul>
+                {{product}}
+                <hr align="left" width="150px">
+                <li>
+                  SoftInfo's
+                  <ul>
+                      {% for i in product.softinfo_set.all %}
+                      <li>
+                          color: {{i.color}}
+                      </li>
+                      <li>
+                          size: {{i.size}}
+                      </li>
+                      {% endfor %}
+                  </ul>
+                </li>
+                <li>
+                  HardInfo's
+                  <ul>
+                      {% for i in product.hardinfo_set.all %}
+                      <li>
+                          weight: {{i.weight}}
+                      </li>
+                      <li>
+                          height: {{i.height}}
+                      </li>
+                      {% endfor %}
+                  </ul>
+                </li>
+            </ul>
+          </li>
+          <br>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
