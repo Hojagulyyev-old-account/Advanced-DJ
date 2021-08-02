@@ -29,16 +29,3 @@ class AnotherView(CreateView, ListView, MyContextMixin):
     template_name = 'myapp/another.html'
     form_class = ItemForm
     success_url = '/another/'
-
-
-def generator(self, *args, **kwargs):
-    if kwargs['method'] == 'create':
-        for i in range(1, kwargs['range']):
-            item = Item(title=f"title {i}")
-            item.save()
-        return redirect('another')
-    elif kwargs['method'] == 'delete':
-        Item.objects.all().delete()
-        return redirect('another')
-    else:
-        return redirect('index')
