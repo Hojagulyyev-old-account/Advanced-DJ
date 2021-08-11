@@ -128,7 +128,7 @@ LOCALE_PATHS = (
 
 from django.utils.translation import gettext_lazy as _
 
-LANGUAGE_CODE = 'tk'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('tk', _('Turkmen')),

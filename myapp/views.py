@@ -6,8 +6,16 @@ from django.views.generic.list import ListView
 from .models import Product, Item
 from .forms import ProductForm, ItemForm
 from django.utils.translation import gettext as _
+import urllib
 
 # Create your views here.
+def index(request):
+    default_language = {
+        'tk':'/tk/home/',
+        'en':'/en/home/',
+    }
+    return redirect('{}'.format(default_language[settings.LANGUAGE_CODE]))
+
 class MyContextMixin(ContextMixin):
 
     def get_context_data(self, *args, **kwargs):
@@ -15,7 +23,8 @@ class MyContextMixin(ContextMixin):
         context['hello'] = _('Hello world !')
         return context
 
-class IndexView(CreateView, MyContextMixin):
+
+class HomeIndexView(CreateView, MyContextMixin):
     template_name = 'myapp/index.html'
     form_class = ProductForm
     success_url = '/'
